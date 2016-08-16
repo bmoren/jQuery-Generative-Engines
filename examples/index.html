@@ -7,7 +7,7 @@
   <body>
 
     <img class="image" src="test.png" />
-    <img class="image2" src="test2.png" />
+    <!-- <img class="image2" src="test2.png" /> -->
 
 
   </body>
@@ -19,16 +19,9 @@
 
       $('.image').replicate({
           total:100,
-          random: true
+          random: true,
+          mode: 'once', // options are ONCE and STEP
       });
-
-
-
-      // $('.image2').iterate({
-      //       speed: 100,
-      //       total:50,
-      //       random: true
-      // });
 
 
     })
