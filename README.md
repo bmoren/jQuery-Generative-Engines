@@ -41,10 +41,3 @@ $('.image').iterate({
 </script>
 ```
 ---
-
-
-
-
-
-todo:
-1. generate from array
