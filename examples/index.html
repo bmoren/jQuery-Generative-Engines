@@ -6,8 +6,15 @@
   </head>
   <body>
 
-    <img class="image" src="test.png" />
-    <img class="image2" src="test2.png" />
+    <!-- <img class="image" src="test.png" />
+    <img class="image2" src="test2.png" /> -->
+
+    <div class="box">
+      <span>Lorem</span>
+      <span>Ipsum</span>
+      <img class="image" src="test.png" />
+      <button>click</button>
+    </div>
 
 
   </body>
@@ -17,10 +24,10 @@
     $(function(){
 
 
-      $('.image').replicate({
-          total:100,
-          random: true
-      });
+      // $('.image').replicate({
+      //     total:100,
+      //     random: true
+      // });
 
 
 
@@ -29,6 +36,11 @@
       //       total:50,
       //       random: true
       // });
+
+      $('.box').populate({
+        random: true,
+        direction: 'random'
+      })
 
 
     })
