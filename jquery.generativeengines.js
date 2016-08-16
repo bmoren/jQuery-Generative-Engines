@@ -41,6 +41,8 @@ $.fn.iterate = function(options) {
     var me = $(this) //store instance of this for later use in the set interval function below.
     var counter = 0;
 
+    $('body').find(me).remove();
+
     var gogogadget = setInterval(function(){
 
       if( S.total != 0 ){ counter++ };
@@ -48,8 +50,6 @@ $.fn.iterate = function(options) {
       if(counter >= S.total && S.total != 0){
         clearInterval(gogogadget);
       }
-
-      $('body').append(me.clone())
 
       if(S.random){
         var rw = Math.random() * (window.innerWidth - me.width());
@@ -63,6 +63,8 @@ $.fn.iterate = function(options) {
         })
 
       }
+
+      $('body').append(me.clone());
 
     }, S.speed);
 

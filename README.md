@@ -47,5 +47,4 @@ $('.image').iterate({
 
 
 todo:
-1. make initial element disappear when selected
 1. generate from array
