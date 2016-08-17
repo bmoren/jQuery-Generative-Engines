@@ -76,6 +76,8 @@ $.fn.populate = function(options) {
 
           if($(this).children().data('populate') == undefined){ //see if this is the first time we have called the method, if so, assign a populate-next to an element depending on direction. INIT!
 
+            randomOrder = new nonRepRand(0, $(this).children().length);
+
             if(S.direction === 'forward'){
               $(this).children().eq(0).data('populate-next', true );
             }
@@ -83,9 +85,17 @@ $.fn.populate = function(options) {
               $(this).children().eq(length-1).data('populate-next', true );
             }
 
-            if(S.direction === 'random' || S.direction === 'non-repeating-random'){
+            if(S.direction === 'random'){
               var rand = Math.floor(Math.random()*length);
               $(this).children().eq(rand).data('populate-next', true );
+            }
+
+            if(S.direction === 'non-repeating-random'){
+              // get all the elements and assign them a random unique number
+              $(this).children().each(function(){
+                  $(this).data('order', randomOrder.numberSet[0]);
+                  randomOrder.next();
+              });
             }
 
           } //close undefined populate
@@ -152,21 +162,8 @@ $.fn.populate = function(options) {
 
           if(S.direction === 'non-repeating-random'){
 
-            var nonrep = new nonRepRand(0, $(this).children().length);
-
-            // oh boy!
-
-            if(stored_index == 0){
-              $(this).children().eq(length-1).data('populate-next', true );
-            }else{
-              $(this).children().eq(stored_index-1).data('populate-next', true );
-            }
-
-            stored_index++;
-
-            if(stored_index > $(this).children().length){
-              stored_index = 0;
-            }
+            $(this).children().eq(randomOrder.pop).data('populate-next', true);
+            randomOrder.next();
 
           } //close S.random
 
