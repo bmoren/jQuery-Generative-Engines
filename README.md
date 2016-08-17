@@ -46,12 +46,11 @@ $('.image').replicate({
 
 $(window).click(function(){
 
-
   $('.box').populate({
     random: true, //TRUE: random placement in the whole page. FALSE: standard block level hierarchy.
     direction: 'forward' //direction params: forward, backward, random, non-repeating-random // forward appends the next child element, top to bottom, to the screen. //backward appends the next child element, bottom to top, to the screen. //random appends a random child element to the screen. //non-repeating-random appends a random child element to the screen, but will never have the chance to give you the same 2 child elements in a row.
   })
-  })
+  
 })
 
 </script>
