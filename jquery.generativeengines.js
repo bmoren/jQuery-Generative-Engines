@@ -1,4 +1,3 @@
-
 $.fn.replicate = function(options) {
 
   var S = $.extend({
@@ -64,60 +63,6 @@ $.fn.replicate = function(options) {
       }; //close for loop
     }
 };
-
-// $.fn.populate = function(options) {
-//
-//   var S = $.extend({
-//             random: false,
-//             direction: 'forward' //forward appends the next child element from '.content' to the screen. other params: forward, backward, random, non-repeating-random
-//         }, options );
-//
-//         var me = $(this); //store instance of this for later use in the set interval function below.
-//         var myChildren = me.children().toArray();
-//
-//         me.empty();
-//
-//         // if going backward, index needs to start at the max number and count back.
-//         if(S.direction === 'backward'){
-//           index = myChildren.length;
-//         } else {
-//           var index = -1;
-//         }
-//
-//         //we saved our data, let's clear the box and redraw.
-//
-//         for(var i=0;i<myChildren.length;i++){
-//
-//
-//           if(S.direction === 'forward'){
-//             index++;
-//           } else if (S.direction === 'backward'){
-//             index--;
-//           } else {
-//             if(S.direction === 'no-repeat'){
-//               // algorithm pulled from answers here:  http://stackoverflow.com/questions/19351759/javascript-random-number-out-of-5-no-repeat-until-all-have-been-used
-//               //amny answers for non-repeating-random dont have end to end detection ie if the first 'set' ends in a 5 and the second set starts in a '5' we have a problem here is my answer to it, although, its maybe overkill: https://gist.github.com/bmoren/a829c21e89fa249ab5a4
-//             } else {
-//               index = Math.floor(Math.random() * myChildren.length);
-//               console.log(index);
-//             }
-//
-//             if(S.random){
-//               var rw = Math.random() * (window.innerWidth - $(myChildren[i]).width());
-//               var rh = Math.random() * (window.innerHeight - $(myChildren[i]).height());
-//
-//               $(myChildren[index]).css({
-//                 'position':'absolute',
-//                 'top': rh,
-//                 'left':rw
-//               });
-//             }
-//             me.append(myChildren[index]);
-//             //me.append(myChildren[index];
-//           }
-//         }; //close for loop
-// };
-
 
 $.fn.populate = function(options) {
     var S = $.extend({
@@ -207,10 +152,79 @@ $.fn.populate = function(options) {
 
           if(S.direction === 'non-repeating-random'){
 
+            var nonrep = new nonRepRand(0, $(this).children().length);
+
             // oh boy!
+
+            if(stored_index == 0){
+              $(this).children().eq(length-1).data('populate-next', true );
+            }else{
+              $(this).children().eq(stored_index-1).data('populate-next', true );
+            }
+
+            stored_index++;
+
+            if(stored_index > $(this).children().length){
+              stored_index = 0;
+            }
 
           } //close S.random
 
 
+
+}
+
+/*-------------------------------------------------------------------------------------
+Non Repeating Random Number Utility, with loop callback and end-to-end elimination
+https://gist.github.com/bmoren/a829c21e89fa249ab5a4
+-------------------------------------------------------------------------------------*/
+
+var nonRepRand = function(low, high){
+
+  function range(start, end) {
+		var foo = [];
+		for (var i = start; i <= end; i++) {
+				foo.push(i);
+		}
+		return foo;
+  }
+
+  function shuffle(o){ //v1.0 - google labs
+		for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+		return o;
+  }
+
+  this.low = low;
+  this.high = high;
+  this.numberSet = shuffle(range( this.low, this.high));
+  this.pop
+  this.prev
+
+  // console.log(this.numberSet);
+
+  this.next = function(loopCallback){
+    this.prev = this.pop;
+    this.pop = this.numberSet.shift()
+
+    if(this.pop == undefined){ //have we reached the end?
+      if(loopCallback != null){
+        loopCallback(true);
+      }
+
+      this.numberSet = shuffle(range( this.low, this.high)); //get a new numberset
+      // console.log(this.numberSet);
+
+      this.pop = this.numberSet.shift() //get the first val from the new numberset
+
+      if(this.pop == this.prev){ //is the first val of the new numberset the same as the previous?
+        this.numberSet.push(this.pop) //move it to the front of the array
+        // console.log("moved " + this.pop + " to back of the array");
+        this.pop = this.numberSet.shift() //get the second value instead
+      }
+
+    }
+
+    return this.pop;
+  }
 
 }
