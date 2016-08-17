@@ -3,7 +3,7 @@ Generative Engines for jQuery Projects
 
 ---
 ### .replicate()
-Replicates a selected item a specific number of times. Takes an optional object of options with `total`, `random`,`speed`, `mode` parameters. `total` defines how many copies to render to the screen. `random` defines if the copies should be randomly placed on the screen using absolute positioning with random top and left values. `mode`
+.replicate() replicates a selected item a specific number of times. Takes an optional object of options with `total`, `random`,`speed`, `mode` parameters. `total` defines how many copies to render to the screen. `random` defines if the copies should be randomly placed on the screen using absolute positioning with random top and left values. `mode`
 determines the mode of which there are two: `once` renders all replicants to the screen immediately. `step` renders one replicant to the screen per `speed` interval. In the example below `.image` will be replicated and placed in the window at a random location once every 500ms (half second) until there are 100 replicants placed into the window.
 ```html
 
@@ -24,14 +24,35 @@ $('.image').replicate({
 
 ---
 ### .populate()
-tktk
+.populate() grabs the children of a selected element and iterates through them on each subsequent call. .populate() uses some [data](https://api.jquery.com/data/) caching in order to track the current and future position of stepping through children elements.
+
+.populate() takes an optional options object with 2 parameters.
+
+`random` defines if the copies should be randomly placed on the screen using absolute positioning with random top and left values. default `random: true`
+
+`direction` can be defined as `'forward'`, `'backward'`, `'random'`, `'non-repeating-random'`. `'forward'` appends the next child element, top to bottom, to the screen. `'backward'` appends the next child element, bottom to top, to the screen. `'random'` appends a random child element to the screen. `'non-repeating-random'` appends a random child element to the screen, but will never have the chance to give you the same 2 child elements in a row. default `direction: 'random'`
 
 ```html
+<div class="box">
+  <span>ONE</span>
+  <span>TWO</span>
+  <a href="#">THREE</a>
+  <button>FOUR</button>
+</div>
 
 
 <!-- include jQuery and plugin before -->
 <script type="text/javascript">
 
+$(window).click(function(){
+
+
+  $('.box').populate({
+    random: true, //TRUE: random placement in the whole page. FALSE: standard block level hierarchy.
+    direction: 'forward' //direction params: forward, backward, random, non-repeating-random // forward appends the next child element, top to bottom, to the screen. //backward appends the next child element, bottom to top, to the screen. //random appends a random child element to the screen. //non-repeating-random appends a random child element to the screen, but will never have the chance to give you the same 2 child elements in a row.
+  })
+  })
+})
 
 </script>
 ```

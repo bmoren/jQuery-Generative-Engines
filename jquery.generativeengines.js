@@ -121,8 +121,8 @@ $.fn.replicate = function(options) {
 
 $.fn.populate = function(options) {
     var S = $.extend({
-              random: false,
-              direction: 'forward' //forward appends the next child element from '.content' to the screen. other params: forward, backward, random, non-repeating-random
+              random: true,
+              direction: 'random' //forward appends the next child element from '.content' to the screen. other params: forward, backward, random, non-repeating-random
           }, options );
 
           // console.log(myChildren);
