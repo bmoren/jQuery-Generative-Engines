@@ -140,7 +140,7 @@ $.fn.populate = function(options) {
           $(this).children().data('populate', true) // mark that we have alredy assigned a populate-next somewhere.
 
           if(S.direction === 'forward'){
-            var pNext = 0;
+            var stored_index = 0;
             for(var i=0;i<=length;i++){
               if($(this).children().eq(i).data('populate-next')){ //are we the one to render?
                 $(this).children().eq(i).removeData('populate-next') //now move the render tag to the next one!
@@ -165,19 +165,18 @@ $.fn.populate = function(options) {
 
                 }//close random
 
-                pNext = i //store the index value for use below incase we need to loop back to the top.
+                stored_index = i //store the index value for use below incase we need to loop back to the top.
               } //close the populate-next check
             } //close for loop
 
             //setup for next round
-            if(pNext == length-1){
+            if(stored_index == length-1){
               $(this).children().eq(0).data('populate-next', true );
             }else{
-              $(this).children().eq(pNext+1).data('populate-next', true );
+              $(this).children().eq(stored_index+1).data('populate-next', true );
             }
 
-
-          }
+          } //close S.forward
 
 
 
