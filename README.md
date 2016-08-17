@@ -3,9 +3,8 @@ Generative Engines for jQuery Projects
 
 ---
 ### .replicate()
-#### $.replicate(options)
-Replicates a selected item a specific number of times. Takes an optional object of options with `total` and `random` parameters. `total` defines how many copies to render to the screen. `random` defines if the copies should be randomly placed on the screen using absolute positioning with random top and left values. Default is `{ total:100, random:true }`
-
+Replicates a selected item a specific number of times. Takes an optional object of options with `total`, `random`,`speed`, `mode` parameters. `total` defines how many copies to render to the screen. `random` defines if the copies should be randomly placed on the screen using absolute positioning with random top and left values. `mode`
+determines the mode of which there are two: `once` renders all replicants to the screen immediately. `step` renders one replicant to the screen per `speed` interval. In the example below `.image` will be replicated and placed in the window at a random location once every 500ms (half second) until there are 100 replicants placed into the window.
 ```html
 
 <img class='image' src='cool.jpg'>
@@ -13,30 +12,26 @@ Replicates a selected item a specific number of times. Takes an optional object 
 <!-- include jQuery and plugin before -->
 <script type="text/javascript">
 
-  $('.image').replicate({
-      total:100,
-      random: true
-  }); // creates 100 copies of cool.jpg in random places on the screen.
-
+$('.image').replicate({
+  speed:500, // the speed at which to replicate if using step mode below.
+  total: 100, // the amount of times to replicate, use 0 for infinite
+  random: false, //TRUE: random placement in the whole page. FALSE: standard block level hierarchy.
+  mode: 'step' // ONCE: Generates all elements at once.  STEP: Generates one per "speed" interval (ms)
+});
 </script>
 ```
 ---
-### .iterate()
-#### $.iterate(options)
-Replicates a selected item a specific number of times at a set rate. Takes an optional object of options with `speed`, `total` and `random` parameters `speed` argument determines how fast to add things to the screen in milliseconds. `total` argument determines how many instances should be added. Use 0 for infinity instances. `random` argument positions elements with random top and left absolute positioning within the browser window. Default is `{ speed:500, total:100, random:true }`
+
+---
+### .populate()
+tktk
 
 ```html
 
-<img class='image' src='cool.jpg'>
 
 <!-- include jQuery and plugin before -->
 <script type="text/javascript">
 
-$('.image').iterate({
-      speed: 100,
-      total:100,
-      random: false
-});// adds a copy of cool.jpg to the screen every 500 milliseconds up to 100 copies. Places the copies in random places on the screen.
 
 </script>
 ```
