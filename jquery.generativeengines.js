@@ -129,18 +129,27 @@ $.fn.populate = function(options) {
           var length = $(this).children().length
 
 
-          if($(this).children().data('populate') == undefined){ //see if this is the first time we have called the method, if so, assign a populate-next to the first element.
+          if($(this).children().data('populate') == undefined){ //see if this is the first time we have called the method, if so, assign a populate-next to an element depending on direction. INIT!
 
-            $(this).children().eq(0).data('populate-next', true );
+            if(S.direction === 'forward'){
+              $(this).children().eq(0).data('populate-next', true );
+            }
+            if(S.direction === 'backward'){
+              $(this).children().eq(length-1).data('populate-next', true );
+            }
 
-            // console.log($(this).children().eq(0).data('populate-next'));
+            if(S.direction === 'random' || S.direction === 'non-repeating-random'){
+              var rand = Math.floor(Math.random()*length);
+              $(this).children().eq(rand).data('populate-next', true );
+            }
 
           } //close undefined populate
 
           $(this).children().data('populate', true) // mark that we have alredy assigned a populate-next somewhere.
 
-          if(S.direction === 'forward'){
+
             var stored_index = 0;
+
             for(var i=0;i<=length;i++){
               if($(this).children().eq(i).data('populate-next')){ //are we the one to render?
                 $(this).children().eq(i).removeData('populate-next') //now move the render tag to the next one!
@@ -169,6 +178,7 @@ $.fn.populate = function(options) {
               } //close the populate-next check
             } //close for loop
 
+          if(S.direction === 'forward'){
             //setup for next round
             if(stored_index == length-1){
               $(this).children().eq(0).data('populate-next', true );
@@ -177,6 +187,29 @@ $.fn.populate = function(options) {
             }
 
           } //close S.forward
+
+          if(S.direction === 'backward'){
+            //setup for next round
+            if(stored_index == 0){
+              $(this).children().eq(length-1).data('populate-next', true );
+            }else{
+              $(this).children().eq(stored_index-1).data('populate-next', true );
+            }
+
+          } //close S.backward
+
+          if(S.direction === 'random'){
+            //setup for next round
+              var rand = Math.floor(Math.random()*length);
+              $(this).children().eq(rand).data('populate-next', true );
+          } //close S.random
+
+
+          if(S.direction === 'non-repeating-random'){
+
+            // oh boy!
+
+          } //close S.random
 
 
 
