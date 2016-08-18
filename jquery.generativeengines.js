@@ -70,13 +70,14 @@ $.fn.populate = function(options) {
               direction: 'random' //forward appends the next child element from '.content' to the screen. other params: forward, backward, random, non-repeating-random
           }, options );
 
+
           // console.log(myChildren);
           var length = $(this).children().length
 
-
           if($(this).children().data('populate') == undefined){ //see if this is the first time we have called the method, if so, assign a populate-next to an element depending on direction. INIT!
+            var data = $(this).clone(true);
 
-            randomOrder = new nonRepRand(0, $(this).children().length);
+            $(this).hide();
 
             if(S.direction === 'forward'){
               $(this).children().eq(0).data('populate-next', true );
@@ -85,29 +86,21 @@ $.fn.populate = function(options) {
               $(this).children().eq(length-1).data('populate-next', true );
             }
 
-            if(S.direction === 'random'){
+            if(S.direction === 'random' || S.direction === 'non-repeating-random'){
               var rand = Math.floor(Math.random()*length);
               $(this).children().eq(rand).data('populate-next', true );
-            }
-
-            if(S.direction === 'non-repeating-random'){
-              // get all the elements and assign them a random unique number
-              $(this).children().each(function(){
-                  $(this).data('order', randomOrder.numberSet[0]);
-                  randomOrder.next();
-              });
             }
 
           } //close undefined populate
 
           $(this).children().data('populate', true) // mark that we have alredy assigned a populate-next somewhere.
 
-
+            //mode storage
             var stored_index = 0;
 
             for(var i=0;i<=length;i++){
               if($(this).children().eq(i).data('populate-next')){ //are we the one to render?
-                $(this).children().eq(i).removeData('populate-next') //now move the render tag to the next one!
+                  $(this).children().eq(i).removeData('populate-next')
 
                 var me = $(this).children().eq(i).clone() //this is the one we want.
 
@@ -161,67 +154,14 @@ $.fn.populate = function(options) {
 
 
           if(S.direction === 'non-repeating-random'){
+              var rand = Math.floor( Math.random()*length );
 
-            $(this).children().eq(randomOrder.pop).data('populate-next', true);
-            randomOrder.next();
+              while(rand == stored_index){ //keep checking if we are the same!
+                rand = Math.floor( Math.random()*length );
+                // console.log("try again");
+              }
 
+              $(this).children().eq(rand).data('populate-next', true );
+              // console.log(rand);
           } //close S.random
-
-
-
-}
-
-/*-------------------------------------------------------------------------------------
-Non Repeating Random Number Utility, with loop callback and end-to-end elimination
-https://gist.github.com/bmoren/a829c21e89fa249ab5a4
--------------------------------------------------------------------------------------*/
-
-var nonRepRand = function(low, high){
-
-  function range(start, end) {
-		var foo = [];
-		for (var i = start; i <= end; i++) {
-				foo.push(i);
-		}
-		return foo;
-  }
-
-  function shuffle(o){ //v1.0 - google labs
-		for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-		return o;
-  }
-
-  this.low = low;
-  this.high = high;
-  this.numberSet = shuffle(range( this.low, this.high));
-  this.pop
-  this.prev
-
-  // console.log(this.numberSet);
-
-  this.next = function(loopCallback){
-    this.prev = this.pop;
-    this.pop = this.numberSet.shift()
-
-    if(this.pop == undefined){ //have we reached the end?
-      if(loopCallback != null){
-        loopCallback(true);
-      }
-
-      this.numberSet = shuffle(range( this.low, this.high)); //get a new numberset
-      // console.log(this.numberSet);
-
-      this.pop = this.numberSet.shift() //get the first val from the new numberset
-
-      if(this.pop == this.prev){ //is the first val of the new numberset the same as the previous?
-        this.numberSet.push(this.pop) //move it to the front of the array
-        // console.log("moved " + this.pop + " to back of the array");
-        this.pop = this.numberSet.shift() //get the second value instead
-      }
-
-    }
-
-    return this.pop;
-  }
-
 }
