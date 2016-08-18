@@ -65,59 +65,6 @@ $.fn.replicate = function(options) {
     }
 };
 
-// $.fn.populate = function(options) {
-//
-//   var S = $.extend({
-//             random: false,
-//             direction: 'forward' //forward appends the next child element from '.content' to the screen. other params: forward, backward, random, non-repeating-random
-//         }, options );
-//
-//         var me = $(this); //store instance of this for later use in the set interval function below.
-//         var myChildren = me.children().toArray();
-//
-//         me.empty();
-//
-//         // if going backward, index needs to start at the max number and count back.
-//         if(S.direction === 'backward'){
-//           index = myChildren.length;
-//         } else {
-//           var index = -1;
-//         }
-//
-//         //we saved our data, let's clear the box and redraw.
-//
-//         for(var i=0;i<myChildren.length;i++){
-//
-//
-//           if(S.direction === 'forward'){
-//             index++;
-//           } else if (S.direction === 'backward'){
-//             index--;
-//           } else {
-//             if(S.direction === 'no-repeat'){
-//               // algorithm pulled from answers here:  http://stackoverflow.com/questions/19351759/javascript-random-number-out-of-5-no-repeat-until-all-have-been-used
-//               //amny answers for non-repeating-random dont have end to end detection ie if the first 'set' ends in a 5 and the second set starts in a '5' we have a problem here is my answer to it, although, its maybe overkill: https://gist.github.com/bmoren/a829c21e89fa249ab5a4
-//             } else {
-//               index = Math.floor(Math.random() * myChildren.length);
-//               console.log(index);
-//             }
-//
-//             if(S.random){
-//               var rw = Math.random() * (window.innerWidth - $(myChildren[i]).width());
-//               var rh = Math.random() * (window.innerHeight - $(myChildren[i]).height());
-//
-//               $(myChildren[index]).css({
-//                 'position':'absolute',
-//                 'top': rh,
-//                 'left':rw
-//               });
-//             }
-//             me.append(myChildren[index]);
-//             //me.append(myChildren[index];
-//           }
-//         }; //close for loop
-// };
-
 
 $.fn.populate = function(options) {
     var S = $.extend({
@@ -147,12 +94,12 @@ $.fn.populate = function(options) {
 
           $(this).children().data('populate', true) // mark that we have alredy assigned a populate-next somewhere.
 
-
+            //mode storage
             var stored_index = 0;
 
             for(var i=0;i<=length;i++){
               if($(this).children().eq(i).data('populate-next')){ //are we the one to render?
-                $(this).children().eq(i).removeData('populate-next') //now move the render tag to the next one!
+                  $(this).children().eq(i).removeData('populate-next')
 
                 var me = $(this).children().eq(i).clone() //this is the one we want.
 
@@ -206,9 +153,15 @@ $.fn.populate = function(options) {
 
 
           if(S.direction === 'non-repeating-random'){
+              var rand = Math.floor( Math.random()*length );
 
-            // oh boy!
+              while(rand == stored_index){ //keep checking if we are the same!
+                rand = Math.floor( Math.random()*length );
+                // console.log("try again");
+              }
 
+              $(this).children().eq(rand).data('populate-next', true );
+              // console.log(rand);
           } //close S.random
 
 
