@@ -6,13 +6,16 @@ $.fn.replicate = function(options) {
             speed:500,
             total: 100,
             random: true,
-            mode: 'once' // ONCE: Generates all elements at once.  STEP: Generates one per "speed" interval (ms)
+            mode: 'once', // ONCE: Generates all elements at once.  STEP: Generates one per "speed" interval (ms)
+            hide: true
         }, options );
 
     var me = $(this); //store instance of this for later use in the set interval function below.
     var w = me.width() //store width and height before we remove the original element
     var h = me.height()
-    $('body').find(me).remove();
+    if(S.hide){
+      $('body').find(me).remove();
+    }
 
     var counter = 0;
 
@@ -69,12 +72,22 @@ $.fn.replicate = function(options) {
 $.fn.populate = function(options) {
     var S = $.extend({
               random: true,
-              direction: 'random' //forward appends the next child element from '.content' to the screen. other params: forward, backward, random, non-repeating-random
+              direction: 'random', //forward appends the next child element from '.content' to the screen. other params: forward, backward, random, non-repeating-random
+              hide: true
           }, options );
 
           // console.log(myChildren);
           var length = $(this).children().length
 
+          //hide?
+          // for(var i=0;i<length;i++){
+          //   $(this).children().eq(i)
+          //   console.log("this"+i);
+          // }
+
+          if(S.hide){
+            $(this).children().hide();
+          }
 
           if($(this).children().data('populate') == undefined){ //see if this is the first time we have called the method, if so, assign a populate-next to an element depending on direction. INIT!
 
@@ -103,7 +116,9 @@ $.fn.populate = function(options) {
 
                 var me = $(this).children().eq(i).clone() //this is the one we want.
 
-                $('body').append(me) //ok cool, add to screen
+                $('body').append(me); //ok cool, add to screen
+
+                $(me).show()
 
                 if(S.random){
 

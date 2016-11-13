@@ -16,7 +16,8 @@ $('.image').replicate({
   speed:500, // the speed at which to replicate if using step mode below.
   total: 100, // the amount of times to replicate, use 0 for infinite
   random: false, //TRUE: random placement in the whole page. FALSE: standard block level hierarchy.
-  mode: 'step' // ONCE: Generates all elements at once.  STEP: Generates one per "speed" interval (ms)
+  mode: 'step', // ONCE: Generates all elements at once.  STEP: Generates one per "speed" interval (ms)
+  hide: true //Hides the parent and child elements when the method is called, useful if you do not want to show the original content and have it appear out of nowhere.
 });
 </script>
 ```
@@ -48,9 +49,10 @@ $(window).click(function(){
 
   $('.box').populate({
     random: true, //TRUE: random placement in the whole page. FALSE: standard block level hierarchy.
-    direction: 'forward' //direction params: forward, backward, random, non-repeating-random // forward appends the next child element, top to bottom, to the screen. //backward appends the next child element, bottom to top, to the screen. //random appends a random child element to the screen. //non-repeating-random appends a random child element to the screen, but will never have the chance to give you the same 2 child elements in a row.
+    direction: 'forward', //direction params: forward, backward, random, non-repeating-random // forward appends the next child element, top to bottom, to the screen. //backward appends the next child element, bottom to top, to the screen. //random appends a random child element to the screen. //non-repeating-random appends a random child element to the screen, but will never have the chance to give you the same 2 child elements in a row.
+    hide: true //Hides the parent and child elements when the method is called, useful if you do not want to show the original content and have it appear out of nowhere.
   })
-  
+
 })
 
 </script>
