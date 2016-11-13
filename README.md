@@ -17,7 +17,7 @@ $('.image').replicate({
   total: 100, // the amount of times to replicate, use 0 for infinite
   random: false, //TRUE: random placement in the whole page. FALSE: standard block level hierarchy.
   mode: 'step', // ONCE: Generates all elements at once.  STEP: Generates one per "speed" interval (ms)
-  hide: true //Hides the parent and child elements when the method is called, useful if you do not want to show the original content and have it appear out of nowhere.
+  hide: true //Hides the original element when the method is called, useful if you do not want to show the original content and have it appear out of nowhere.
 });
 </script>
 ```
@@ -27,7 +27,7 @@ $('.image').replicate({
 ### .populate()
 .populate() grabs the children of a selected element and iterates through them on each subsequent call. .populate() uses some [data](https://api.jquery.com/data/) caching in order to track the current and future position of stepping through children elements.
 
-.populate() takes an optional options object with 2 parameters.
+.populate() takes an optional options object with 3 parameters.
 
 `random` defines if the copies should be randomly placed on the screen using absolute positioning with random top and left values. default `random: true`
 
