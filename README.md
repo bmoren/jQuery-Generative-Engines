@@ -58,3 +58,23 @@ $(window).click(function(){
 </script>
 ```
 ---
+---
+### .numberClick()
+.numberClick() calls a callback function after clicking on a selected element a number of specified times
+
+```html
+<div class="clickBox">
+  CLICK ME
+</div>
+
+<!-- include jQuery and plugin before -->
+<script type="text/javascript">
+
+$('.clickBox').numberClick(8,function(e){
+  console.log(e)  //get the click event details out
+  console.log("8 clicks happened, call this back now!")
+})
+
+</script>
+```
+---

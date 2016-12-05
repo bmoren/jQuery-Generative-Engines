@@ -1,4 +1,6 @@
-
+/* ~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
++~+~+~+~+~+ REPLICATE +~+~+~+~+~+~
++~+~+~+~+~+~+~+~+~+~+~+~+~+~+~ */
 $.fn.replicate = function(options) {
 
   var S = $.extend({
@@ -68,7 +70,9 @@ $.fn.replicate = function(options) {
     }
 };
 
-
+/* ~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
++~+~+~+~+~+ POPULATE +~+~+~+~+~+~
++~+~+~+~+~+~+~+~+~+~+~+~+~+~+~ */
 $.fn.populate = function(options) {
     var S = $.extend({
               random: true,
@@ -179,6 +183,22 @@ $.fn.populate = function(options) {
               // console.log(rand);
           } //close S.random
 
+}
 
+/* ~+~+~+~+~+~+~+~+~+~+~+~+~+~+~+
++~+~+~+~+~+ NUMBERCLICK +~+~+~+~+
++~+~+~+~+~+~+~+~+~+~+~+~+~+~+~ */
+
+$.fn.numberClick = function(times, callback) {
+  var counter = 0
+  $(this).click(function(e){
+    counter++
+    // console.log(counter)
+    if(counter === times){
+      if(typeof callback == 'function'){ callback(e) };
+      counter = 0;
+    }
+
+  })
 
 }
