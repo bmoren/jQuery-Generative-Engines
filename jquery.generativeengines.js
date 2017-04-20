@@ -56,8 +56,8 @@ $.fn.replicate = function(options) {
         $('body').append(me.clone())
 
         if(S.random){
-          var rw = Math.random() * (window.innerWidth - w );
-          var rh = Math.random() * (window.innerHeight - h );;
+          var rw = (Math.random() * (window.innerWidth - w ));
+          var rh = (Math.random() * (window.innerHeight - h )) + window.scrollY ;
 
           me.css({
             'position':'absolute',

@@ -3,18 +3,23 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <style media="screen">
+      html,body{
+        height: 500vh;
+      }
+    </style>
   </head>
   <body>
 
-    <!-- <img class="image" src="test.png" /> -->
+    <img class="image" src="test.png" />
     <!-- <img class="image2" src="test2.png" /> -->
 
-    <div class="box">
+    <!-- <div class="box">
       <span>ONE</span>
       <span>TWO</span>
       <a href="#">THREE</a>
       <button>FOUR</button>
-    </div>
+    </div> -->
 
 
   </body>
@@ -24,23 +29,23 @@
     $(function(){
 
 
-      // $('.image').replicate({
-      //   speed:500,
-      //   total: 100,
-      //   random: true,
-      //   mode: 'once' // ONCE: Generates all elements at once.  STEP: Generates one per "speed" interval (ms)
-      // });
+      $('.image').replicate({
+        speed:500,
+        total: 100,
+        random: true,
+        mode: 'once' // ONCE: Generates all elements at once.  STEP: Generates one per "speed" interval (ms)
+      });
 
-      $(window).click(function(){
-
-
-        $('.box').populate({
-          random:true,
-          direction: 'non-repeating-random'
-        })
-      })
-
-
+    //   $(window).click(function(){
+    //
+    //
+    //     $('.box').populate({
+    //       random:true,
+    //       direction: 'non-repeating-random'
+    //     })
+    //   })
+    //
+    //
     })
   </script>
 </html>

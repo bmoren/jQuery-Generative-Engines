@@ -22,8 +22,6 @@ $('.image').replicate({
 </script>
 ```
 ---
-
----
 ### .populate()
 .populate() grabs the children of a selected element and iterates through them on each subsequent call. .populate() uses some [data](https://api.jquery.com/data/) caching in order to track the current and future position of stepping through children elements.
 
@@ -58,9 +56,8 @@ $(window).click(function(){
 </script>
 ```
 ---
----
 ### .numberClick()
-.numberClick() calls a callback function after clicking on a selected element a number of specified times
+.numberClick() calls a callback function after clicking on a selected element a number of specified times. Take 2 Parameters, first is the number of times the element an can be clicked on, second is a callback function. 
 
 ```html
 <div class="clickBox">
